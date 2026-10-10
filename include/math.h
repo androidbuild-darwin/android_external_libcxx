@@ -300,6 +300,47 @@ long double    truncl(long double x);
 
 #include_next <math.h>
 
+#if defined(__APPLE__) && defined(__cplusplus)
+// Darwin headers omit these macros when Clang reports module support.
+// The overloads below still need them when using the legacy math wrapper.
+#ifndef signbit
+#define signbit(x) __builtin_signbit(x)
+#endif
+#ifndef fpclassify
+#define fpclassify(x) __builtin_fpclassify(FP_NAN, FP_INFINITE, FP_NORMAL, FP_SUBNORMAL, FP_ZERO, x)
+#endif
+#ifndef isfinite
+#define isfinite(x) __builtin_isfinite(x)
+#endif
+#ifndef isinf
+#define isinf(x) __builtin_isinf(x)
+#endif
+#ifndef isnan
+#define isnan(x) __builtin_isnan(x)
+#endif
+#ifndef isnormal
+#define isnormal(x) __builtin_isnormal(x)
+#endif
+#ifndef isgreater
+#define isgreater(x, y) __builtin_isgreater(x, y)
+#endif
+#ifndef isgreaterequal
+#define isgreaterequal(x, y) __builtin_isgreaterequal(x, y)
+#endif
+#ifndef isless
+#define isless(x, y) __builtin_isless(x, y)
+#endif
+#ifndef islessequal
+#define islessequal(x, y) __builtin_islessequal(x, y)
+#endif
+#ifndef islessgreater
+#define islessgreater(x, y) __builtin_islessgreater(x, y)
+#endif
+#ifndef isunordered
+#define isunordered(x, y) __builtin_isunordered(x, y)
+#endif
+#endif
+
 #ifdef __cplusplus
 
 // We support including .h headers inside 'extern "C"' contexts, so switch
